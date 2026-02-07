@@ -20,7 +20,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "node --test"
+    "test": "tsc -p tsconfig.test.json && find .test-build/tests -name '*.test.js' -exec node --test {} +"
   },
   "dependencies": {
     "commander": "^13.0.0",
