@@ -125,6 +125,10 @@ async function runCompile(options: CompileOptions): Promise<void> {
   }
 }
 
+export async function runCompileFromAdd(): Promise<void> {
+  await runCompile({});
+}
+
 export function registerCompileCommand(program: Command): void {
   program
     .command('compile')

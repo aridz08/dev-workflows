@@ -1,0 +1,37 @@
+id: nextjs-approuter
+name: "Next.js App Router"
+description: "App Router patterns, RSC, and server actions"
+version: "0.1.0"
+
+rules:
+  - id: nextjs-use-client-minimal
+    scope: architecture
+    severity: error
+    content: |
+      Minimize "use client" directives. Default to Server Components.
+      Only add "use client" when the component needs browser APIs,
+      event handlers, or React hooks that require client state.
+
+  - id: nextjs-server-actions
+    scope: architecture
+    severity: warning
+    content: |
+      Prefer server actions for form submissions and data mutations.
+      Define them with "use server" in a separate file or at the
+      top of an async function.
+
+  - id: nextjs-route-segments
+    scope: architecture
+    severity: error
+    content: |
+      Follow the App Router file conventions: page.tsx, layout.tsx,
+      loading.tsx, error.tsx, not-found.tsx. Do not create custom
+      routing abstractions.
+
+  - id: nextjs-no-client-fetch
+    scope: architecture
+    severity: warning
+    content: |
+      Fetch data in Server Components or server actions, not in
+      client components with useEffect. Use React Suspense for
+      loading states.

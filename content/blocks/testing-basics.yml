@@ -1,0 +1,36 @@
+id: testing-basics
+name: "Testing Basics"
+description: "Test naming, coverage expectations, and mock patterns"
+version: "0.1.0"
+
+rules:
+  - id: testing-descriptive-names
+    scope: testing
+    severity: error
+    content: |
+      Use descriptive test names that explain the expected behavior.
+      Follow the pattern: "should [expected behavior] when [condition]".
+
+  - id: testing-arrange-act-assert
+    scope: testing
+    severity: warning
+    content: |
+      Structure tests with Arrange-Act-Assert (AAA) pattern.
+      Separate setup, execution, and verification into distinct
+      sections for readability.
+
+  - id: testing-no-implementation-details
+    scope: testing
+    severity: warning
+    content: |
+      Test behavior, not implementation details. Avoid asserting
+      on internal state, private methods, or specific function calls
+      unless testing integration points.
+
+  - id: testing-mock-boundaries
+    scope: testing
+    severity: warning
+    content: |
+      Only mock at system boundaries: network requests, databases,
+      file system, and third-party services. Do not mock internal
+      modules or utility functions.
