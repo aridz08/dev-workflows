@@ -1,0 +1,28 @@
+id: tailwind
+name: "Tailwind CSS"
+description: "Utility-first CSS conventions and design tokens"
+version: "0.1.0"
+
+rules:
+  - id: tailwind-utility-first
+    scope: conventions
+    severity: error
+    content: |
+      Use Tailwind utility classes for all styling. Do not write
+      custom CSS unless absolutely necessary (e.g. complex
+      animations or third-party overrides).
+
+  - id: tailwind-design-tokens
+    scope: conventions
+    severity: warning
+    content: |
+      Use Tailwind's design tokens (spacing, colors, typography)
+      from the theme config. Avoid arbitrary values like
+      w-[137px]; prefer the closest token.
+
+  - id: tailwind-no-apply
+    scope: conventions
+    severity: warning
+    content: |
+      Avoid @apply in CSS files. Extract reusable patterns into
+      React components instead of creating CSS abstractions.

@@ -1,0 +1,36 @@
+id: react-conventions
+name: "React Conventions"
+description: "Hooks rules, component patterns, and naming conventions"
+version: "0.1.0"
+
+rules:
+  - id: react-hooks-rules
+    scope: conventions
+    severity: error
+    content: |
+      Follow the Rules of Hooks: only call hooks at the top level,
+      never inside conditions or loops. Custom hooks must start
+      with "use".
+
+  - id: react-component-naming
+    scope: conventions
+    severity: error
+    content: |
+      Use PascalCase for component names and their files.
+      Use camelCase for hook files prefixed with "use"
+      (e.g. useAuth.ts).
+
+  - id: react-prefer-composition
+    scope: conventions
+    severity: warning
+    content: |
+      Prefer composition over prop drilling. Use children,
+      render props, or context for shared behavior rather than
+      deeply nested prop chains.
+
+  - id: react-no-inline-styles
+    scope: conventions
+    severity: warning
+    content: |
+      Avoid inline styles. Use CSS modules, Tailwind classes,
+      or styled-components for styling.
