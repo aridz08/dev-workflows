@@ -1,4 +1,4 @@
-import { mkdir, writeFile, symlink, unlink, access } from 'node:fs/promises';
+import { mkdir, writeFile, readFile, symlink, unlink, access } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import type { Command } from 'commander';
 import chalk from 'chalk';
@@ -8,6 +8,7 @@ import type { Bridge } from '../bridges/types.js';
 import { claudeBridge } from '../bridges/claude.js';
 import { cursorBridge } from '../bridges/cursor.js';
 import { geminiBridge } from '../bridges/gemini.js';
+import { mergeMarkedContent } from '../core/markers.js';
 
 export interface CompileOptions {
   tool?: string;
@@ -80,7 +81,21 @@ async function runCompile(options: CompileOptions): Promise<void> {
 
     const outputs = bridge.compile(rules, config);
 
-    for (const [relativePath, content] of outputs) {
+    for (const [relativePath, rawContent] of outputs) {
+      const isMarkdownBridge = rawContent.startsWith('# Project Rules');
+
+      let content = rawContent;
+      if (isMarkdownBridge && !options.dryRun) {
+        const absoluteCheck = join(cwd, relativePath);
+        let existing: string | null = null;
+        try {
+          existing = await readFile(absoluteCheck, 'utf-8');
+        } catch {
+          existing = null;
+        }
+        content = mergeMarkedContent(existing, rawContent);
+      }
+
       if (options.dryRun) {
         console.log(chalk.cyan(`--- ${relativePath} ---`));
         console.log(content);
