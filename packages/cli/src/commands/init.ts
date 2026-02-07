@@ -91,7 +91,7 @@ async function fileExists(filePath: string): Promise<boolean> {
 
 async function appendToGitignore(cwd: string): Promise<void> {
   const gitignorePath = join(cwd, '.gitignore');
-  const entry = '.dwf/';
+  const entry = '.dwf/.cache/';
 
   if (await fileExists(gitignorePath)) {
     const content = await readFile(gitignorePath, 'utf-8');
@@ -138,10 +138,8 @@ async function runInit(options: InitOptions): Promise<void> {
     await writeFile(join(rulesDir, `${scope}.yml`), buildRuleFileContent(scope), 'utf-8');
   }
 
-  // Append .dwf/ to .gitignore if link mode
-  if (mode === 'link') {
-    await appendToGitignore(cwd);
-  }
+  // Append .dwf/.cache/ to .gitignore
+  await appendToGitignore(cwd);
 
   // Success summary
   console.log('');
@@ -156,9 +154,7 @@ async function runInit(options: InitOptions): Promise<void> {
   for (const scope of RULE_SCOPES) {
     console.log(`    ${chalk.dim(`.dwf/rules/${scope}.yml`)}`);
   }
-  if (mode === 'link') {
-    console.log(`    ${chalk.dim('.gitignore')} (added .dwf/)`);
-  }
+  console.log(`    ${chalk.dim('.gitignore')} (added .dwf/.cache/)`);
   console.log('');
   console.log(`Next: edit ${chalk.cyan('.dwf/rules/')} and run ${chalk.cyan('devw compile')}`);
 }
