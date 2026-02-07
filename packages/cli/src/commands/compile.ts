@@ -3,6 +3,7 @@ import { join, dirname } from 'node:path';
 import type { Command } from 'commander';
 import chalk from 'chalk';
 import { readConfig, readRules } from '../core/parser.js';
+import { computeRulesHash, writeHash } from '../core/hash.js';
 import type { Bridge } from '../bridges/types.js';
 import { claudeBridge } from '../bridges/claude.js';
 import { cursorBridge } from '../bridges/cursor.js';
@@ -117,6 +118,9 @@ async function runCompile(options: CompileOptions): Promise<void> {
   }
 
   if (!options.dryRun) {
+    const hash = computeRulesHash(activeRules);
+    await writeHash(cwd, hash);
+
     console.log('');
     console.log(chalk.green(`Compiled ${String(filesWritten)} file${filesWritten !== 1 ? 's' : ''} successfully.`));
     if (options.verbose) {
