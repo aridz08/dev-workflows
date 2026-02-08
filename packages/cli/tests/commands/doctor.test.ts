@@ -8,6 +8,7 @@ import {
   checkConfigValid,
   checkRulesValid,
   checkDuplicateIds,
+  checkScopeFormat,
   checkBridgesAvailable,
   checkSymlinks,
   checkHashSync,
@@ -144,7 +145,7 @@ blocks: []
       assert.equal(result.passed, true);
     });
 
-    it('fails with duplicate IDs', () => {
+    it('fails with duplicate IDs and shows scopes', () => {
       const rules = [
         makeRule({ id: 'named-exports', scope: 'architecture' }),
         makeRule({ id: 'no-barrel', scope: 'architecture' }),
@@ -154,10 +155,51 @@ blocks: []
       const result = checkDuplicateIds(rules);
       assert.equal(result.passed, false);
       assert.ok(result.message.includes('named-exports'));
+      assert.ok(result.message.includes('architecture'));
+      assert.ok(result.message.includes('conventions'));
     });
 
     it('passes with empty rules', () => {
       const result = checkDuplicateIds([]);
+      assert.equal(result.passed, true);
+    });
+  });
+
+  describe('checkScopeFormat', () => {
+    it('passes with valid built-in scopes', () => {
+      const rules = [
+        makeRule({ id: 'a', scope: 'architecture' }),
+        makeRule({ id: 'b', scope: 'conventions' }),
+        makeRule({ id: 'c', scope: 'security' }),
+      ];
+      const result = checkScopeFormat(rules);
+      assert.equal(result.passed, true);
+    });
+
+    it('passes with valid custom scopes', () => {
+      const rules = [
+        makeRule({ id: 'a', scope: 'team:payments' }),
+        makeRule({ id: 'b', scope: 'agent:reviewer' }),
+        makeRule({ id: 'c', scope: 'pipeline:ci' }),
+      ];
+      const result = checkScopeFormat(rules);
+      assert.equal(result.passed, true);
+    });
+
+    it('fails with invalid scope format', () => {
+      const rules = [
+        makeRule({ id: 'a', scope: 'architecture' }),
+        makeRule({ id: 'b', scope: 'Team:payments' }),
+        makeRule({ id: 'c', scope: ':bad' }),
+      ];
+      const result = checkScopeFormat(rules);
+      assert.equal(result.passed, false);
+      assert.ok(result.message.includes('Team:payments'));
+      assert.ok(result.message.includes(':bad'));
+    });
+
+    it('passes with empty rules', () => {
+      const result = checkScopeFormat([]);
       assert.equal(result.passed, true);
     });
   });
@@ -168,6 +210,19 @@ blocks: []
         version: '0.1',
         project: { name: 'test' },
         tools: ['claude', 'cursor', 'gemini'],
+        mode: 'copy',
+        blocks: [],
+      };
+
+      const result = checkBridgesAvailable(config);
+      assert.equal(result.passed, true);
+    });
+
+    it('passes with windsurf and copilot', () => {
+      const config: ProjectConfig = {
+        version: '0.1',
+        project: { name: 'test' },
+        tools: ['claude', 'windsurf', 'copilot'],
         mode: 'copy',
         blocks: [],
       };

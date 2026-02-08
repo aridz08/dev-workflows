@@ -31,14 +31,14 @@ function buildMarkdown(rules: Rule[]): string {
   return lines.join('\n');
 }
 
-export const geminiBridge: Bridge = {
-  id: 'gemini',
-  outputPaths: ['GEMINI.md'],
+export const copilotBridge: Bridge = {
+  id: 'copilot',
+  outputPaths: ['.github/copilot-instructions.md'],
   usesMarkers: true,
 
   compile(rules: Rule[], _config: ProjectConfig): Map<string, string> {
     const output = new Map<string, string>();
-    output.set('GEMINI.md', buildMarkdown(rules));
+    output.set('.github/copilot-instructions.md', buildMarkdown(rules));
     return output;
   },
 };

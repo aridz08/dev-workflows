@@ -8,10 +8,13 @@ import { computeRulesHash, readStoredHash } from '../core/hash.js';
 import { claudeBridge } from '../bridges/claude.js';
 import { cursorBridge } from '../bridges/cursor.js';
 import { geminiBridge } from '../bridges/gemini.js';
+import { windsurfBridge } from '../bridges/windsurf.js';
+import { copilotBridge } from '../bridges/copilot.js';
 import type { Bridge, ProjectConfig, Rule } from '../bridges/types.js';
 import { fileExists } from '../utils/fs.js';
+import { isValidScope } from '../core/schema.js';
 
-const BRIDGES: Bridge[] = [claudeBridge, cursorBridge, geminiBridge];
+const BRIDGES: Bridge[] = [claudeBridge, cursorBridge, geminiBridge, windsurfBridge, copilotBridge];
 const BRIDGE_IDS = new Set(BRIDGES.map((b) => b.id));
 
 export interface CheckResult {
@@ -83,24 +86,53 @@ export async function checkRulesValid(cwd: string): Promise<CheckResult> {
 }
 
 export function checkDuplicateIds(rules: Rule[]): CheckResult {
-  const seen = new Set<string>();
-  const duplicates = new Set<string>();
+  const scopesById = new Map<string, string[]>();
 
   for (const rule of rules) {
-    if (seen.has(rule.id)) {
-      duplicates.add(rule.id);
+    const scopes = scopesById.get(rule.id);
+    if (scopes) {
+      scopes.push(rule.scope);
+    } else {
+      scopesById.set(rule.id, [rule.scope]);
     }
-    seen.add(rule.id);
   }
 
-  if (duplicates.size > 0) {
+  const duplicates: string[] = [];
+  for (const [id, scopes] of scopesById) {
+    if (scopes.length > 1) {
+      duplicates.push(`${id} (${scopes.join(', ')})`);
+    }
+  }
+
+  if (duplicates.length > 0) {
     return {
       passed: false,
-      message: `Duplicate rule IDs found: ${[...duplicates].join(', ')}`,
+      message: `Duplicate rule IDs found: ${duplicates.join(', ')}`,
     };
   }
 
   return { passed: true, message: 'No duplicate rule IDs' };
+}
+
+export function checkScopeFormat(rules: Rule[]): CheckResult {
+  const invalidScopes: string[] = [];
+
+  for (const rule of rules) {
+    if (!isValidScope(rule.scope)) {
+      invalidScopes.push(rule.scope);
+    }
+  }
+
+  const unique = [...new Set(invalidScopes)];
+
+  if (unique.length > 0) {
+    return {
+      passed: false,
+      message: `Invalid scope format: ${unique.join(', ')}`,
+    };
+  }
+
+  return { passed: true, message: 'All scopes have valid format' };
 }
 
 export function checkBridgesAvailable(config: ProjectConfig): CheckResult {
@@ -177,7 +209,7 @@ function formatResult(result: CheckResult): string {
   if (result.skipped) {
     return `${chalk.dim('-')} ${chalk.dim(result.message)}`;
   }
-  const icon = result.passed ? chalk.green('✓') : chalk.red('✗');
+  const icon = result.passed ? chalk.green('\u2713') : chalk.red('\u2717');
   const text = result.passed ? result.message : chalk.red(result.message);
   return `${icon} ${text}`;
 }
@@ -228,16 +260,20 @@ async function runDoctor(): Promise<void> {
   const dupResult = checkDuplicateIds(rules);
   results.push(dupResult);
 
-  // Check 5: Tools have bridges
+  // Check 5: Scope format valid
+  const scopeResult = checkScopeFormat(rules);
+  results.push(scopeResult);
+
+  // Check 6: Tools have bridges
   // config is guaranteed non-null here since configValidResult.passed
   const bridgeResult = checkBridgesAvailable(config!);
   results.push(bridgeResult);
 
-  // Check 6: Symlinks valid (conditional on mode)
+  // Check 7: Symlinks valid (conditional on mode)
   const symlinkResult = await checkSymlinks(cwd, config!);
   results.push(symlinkResult);
 
-  // Check 7: Hash sync (conditional on compiled files existing)
+  // Check 8: Hash sync (conditional on compiled files existing)
   const hashResult = await checkHashSync(cwd, rules);
   results.push(hashResult);
 
