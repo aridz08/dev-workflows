@@ -1,9 +1,0 @@
-# .dwf/rules/workflow.yml
-scope: workflow
-
-rules: []
-  # Example:
-  # - id: my-rule
-  #   severity: error
-  #   content: |
-  #     Describe your rule here.

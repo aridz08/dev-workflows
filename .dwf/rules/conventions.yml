@@ -1,9 +1,0 @@
-# .dwf/rules/conventions.yml
-scope: conventions
-
-rules: []
-  # Example:
-  # - id: my-rule
-  #   severity: error
-  #   content: |
-  #     Describe your rule here.

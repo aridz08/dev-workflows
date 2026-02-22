@@ -1,9 +1,0 @@
-# .dwf/rules/testing.yml
-scope: testing
-
-rules: []
-  # Example:
-  # - id: my-rule
-  #   severity: error
-  #   content: |
-  #     Describe your rule here.
